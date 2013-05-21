@@ -1,0 +1,126 @@
+/*
+ID: ragesh91
+PROG: beads
+LANG: C++
+*/
+
+#include<iostream>
+#include<string.h>
+#include<fstream>
+using namespace std;
+
+int main(){
+   
+    ifstream in("beads.in");
+    ofstream out("beads.out");
+    
+    int N,i,j,max=0,temp;
+    
+    string str;
+    char last;
+    
+    in >> N;
+    in >> str;
+    
+    for(i=0;i<N;i++){
+        last = str[i];
+        temp = 1;
+        if(i==N-1)
+            j = 0;
+        else
+            j = i+1;
+        while(1){
+            if(last == 'w'){
+                last = str[j];
+                if(j==N-1)
+                    j = 0;
+                else
+                    j++;
+                temp++;
+            }
+            else if(str[j]=='w'){
+                if(j==N-1)
+                    j = 0;
+                else
+                    j++;
+                temp++;
+            }
+            else if(str[j]==last){
+                if(j==N-1)
+                    j = 0;
+                else
+                    j++;
+                temp++;
+            }
+            else{
+                break;
+            }
+            
+            if(temp>N)
+                break;
+        }
+        
+        if(i==0){
+            last = str[N-1];
+        }
+        else{
+            last = str[i-1];
+        }
+        
+        temp++;
+        
+        if(i>1){
+            j = i - 2;
+        }
+        else{
+            j = N - 1 - 1 + i;
+        }
+        
+        while(1){
+            if(last == 'w'){
+                last = str[j];
+                if(j==0)
+                    j = N - 1;
+                else
+                    j--;
+                temp++;
+            }
+            else if(str[j]=='w'){
+                if(j==0)
+                    j = N - 1;
+                else
+                    j--;
+                temp++;
+            }
+            else if(str[j]==last){
+                if(j==0)
+                    j = N-1;
+                else
+                    j--;
+                temp++;
+            }
+            else{
+                break;
+            }
+            
+            if(temp>N)
+                break;
+        }
+        
+        if(temp>N)
+            temp = N;
+        
+        if(temp>max)
+            max = temp;
+        
+        if(max==N)
+            break;
+        
+    }
+    
+    out << max << endl;
+    
+    return 0;
+ }
+    
+
