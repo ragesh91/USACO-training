@@ -1,0 +1,65 @@
+/*
+ID: ragesh91
+PROG: gift1
+LANG: C++
+*/
+
+#include<iostream>
+#include<string.h>
+#include<fstream>
+using namespace std;
+
+int main(){
+   
+    ifstream in("gift1.in");
+    ofstream out("gift1.out");
+    
+    int NP,i,j,num;
+    
+    in >> NP;
+    
+    string name[NP],temp;
+    int ini,NG,ind,gain[NP];
+    
+    for(i=0;i<NP;i++){
+        in >> name[i];
+        gain[i] = 0;
+    }
+    
+    for(i=0;i<NP;i++){
+        in >> temp;
+        for(j=0;j<NP;j++){
+            if(temp == name[j]){
+                ind = j;
+                break;
+            }
+        }
+        
+        in >> ini >> NG;
+        if(NG){
+                gain[ind] -= (ini/NG)*NG;
+        }
+        num = NG;
+        
+        while(num--){
+            in >> temp;
+            for(j=0;j<NP;j++){
+                if(temp == name[j]){
+                    ind = j;
+                    break;
+                }
+            }
+            
+            gain[ind] += ini/NG;
+        }
+        
+    }
+    
+    for(i=0;i<NP;i++){
+        out << name[i] << " " << gain[i] <<endl;
+    }
+    
+    return 0;
+ }
+    
+
