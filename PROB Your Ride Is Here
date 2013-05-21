@@ -1,0 +1,46 @@
+/*
+ID: ragesh91
+PROG: ride
+LANG: C++
+*/
+
+#include<iostream>
+#include<string.h>
+#include<fstream>
+using namespace std;
+
+int main(){
+   
+    ifstream in("ride.in");
+    ofstream out("ride.out");
+    
+    string a,b;
+    int len1,len2,i,mult1=1,mult2=1;
+    
+    in >> a >> b;
+    
+    len1 = a.length();
+    len2 = b.length();
+    
+    for(i=0;i<len1;i++){
+        mult1 *= (a[i]-64);
+    }
+    
+    for(i=0;i<len2;i++){
+        mult2 *= (b[i]-64);
+    }
+    
+    mult1 = mult1%47;
+    mult2 = mult2%47;
+    
+    if(mult1 == mult2){
+        out << "GO"<<endl;
+    }
+    else{
+        out << "STAY"<<endl;
+    }
+    
+    return 0;
+ }
+    
+
