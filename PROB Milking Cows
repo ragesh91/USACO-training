@@ -1,0 +1,124 @@
+/*
+ID: ragesh91
+PROG: milk2
+LANG: C++
+*/
+
+#include<iostream>
+#include<string.h>
+#include<fstream>
+using namespace std;
+
+int main(){
+   
+    ifstream in("milk2.in");
+    ofstream out("milk2.out");
+    
+    int n,i,j,milk=0,idle=0,t1,t2,start_min=1000000,end_max=0,imm_end,imm_start,temp;
+    
+    in >> n;
+    
+    int start[n],end[n];
+    
+    for(i=0;i<n;i++){
+        in >> start[i] >> end[i];
+        if(start[i]<start_min)
+            start_min = start[i];
+        if(end[i]>end_max){
+            end_max = end[i];
+        }
+    }
+       
+    
+    for(i=0;i<n;i++){
+        imm_end = 0;
+        imm_start = 1000000;
+        for(j=0;j<n;j++){
+            if(i!=j){
+                if(start[j]<=start[i] && end[j]>=end[i]){                       //jth person completely covers ith person's schedule  
+                    imm_end = start[i];
+                    imm_start = end[i];
+                    break;
+                }
+                else if(start[j]<=start[i] && end[j]<end[i]){
+                    if(end[j]<=start[i]){
+                        if(imm_end<end[j])
+                            imm_end = end[j];
+                    }
+                    else{
+                        imm_end = start[i];
+                    }
+                }
+                else if(start[j]>start[i] && end[j]<end[i]){
+                    
+                }
+                else if(start[j]>start[i]){
+                    if(start[j]<=end[i])
+                        imm_start = end[i];
+                    else{
+                        if(imm_start>start[j])
+                            imm_start = start[j];
+                    }
+                }
+            }
+        }
+        
+        if(imm_start>end_max)
+            imm_start = end_max;
+        
+        if(imm_end<start_min)
+            imm_end = start_min;
+        
+        t1 = start[i] - imm_end;
+        t2 = imm_start - end[i];
+        
+        if(t1>idle)
+            idle = t1;
+        if(t2>idle)
+            idle = t2;
+        
+    }
+    
+    
+    for(i=1;i<n;i++){
+        for(j=0;j<i;j++){
+            if(start[i]<start[j]){
+                temp = start[i];
+                start[i] = start[j];
+                start[j] = temp;
+                temp = end[i];
+                end[i] = end[j];
+                end[j] = temp;
+            }
+        }
+    }
+    
+    
+    for(i=0;i<n;i++){
+        t1 = start[i];
+        t2 = end[i];
+        for(j=0;j<n;j++){
+            if(start[j]<=t1 && end[j]>=t2){                       //jth person completely covers ith person's schedule  
+                t1 = start[j];
+                t2 = end[j];
+            }
+            else if(start[j]<t1 && end[j]<=t2 && end[j]>=t1){
+                t1 = start[j];
+            }    
+            else if(end[j]>t2 && start[j]>=t1 && start[j]<=t2){
+                t2 = end[j];
+            }
+        }
+        
+        if((t2-t1)>milk){
+            milk = t2-t1;
+        }
+    }
+    
+    
+    out << milk << " " << idle <<endl;
+    
+    return 0;
+ }
+    
+
