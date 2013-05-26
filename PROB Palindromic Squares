@@ -1,0 +1,156 @@
+/*
+ID: ragesh91
+PROG: palsquare
+LANG: C++
+*/
+
+#include<iostream>
+#include<string.h>
+#include<fstream>
+#include <sstream>
+using namespace std;
+
+bool palind(string x){
+    int len = x.length(),i;
+    
+    for(i=0;i<len/2;i++){
+        if(x[i]!=x[len-1-i])
+            return false;
+    }
+    return true;
+}
+
+int main(){
+   
+    ifstream in("palsquare.in");
+    ofstream out("palsquare.out");
+    
+    int i,j,b,sqr,rem,num,len;
+    string str="",conv="",temp;
+    stringstream conversion;
+    
+    in >> b;
+    
+    for(i=1;i<=300;i++){
+        str="";
+        num = i;
+        sqr = i*i;
+        while(sqr>0){
+            rem = sqr % b;
+            sqr /= b;
+            if(rem<10){
+                conversion << rem;
+                str += conversion.str();
+                conversion.str(string());
+                conversion.clear();
+            }
+            else{
+                switch(rem){
+                    case 10:
+                        str += 'A';
+                        break;
+                    case 11:
+                        str += 'B';
+                        break;
+                    case 12:
+                        str += 'C';
+                        break;
+                    case 13:
+                        str += 'D';
+                        break;
+                    case 14:
+                        str += 'E';
+                        break;
+                    case 15:
+                        str += 'F';
+                        break;
+                    case 16:
+                        str += 'G';
+                        break;
+                    case 17:
+                        str += 'H';
+                        break;  
+                    case 18:
+                        str += 'I';
+                        break;
+                    case 19:
+                        str += 'J';
+                        break;    
+                }
+            }
+            
+        }
+        
+        if(palind(str)){
+            conv = "";
+            while(num>0){
+                rem = num % b;
+                num /= b;
+                if(rem<10){
+                    conversion << rem;
+                    conv += conversion.str();
+                    conversion.str(string());
+                    conversion.clear();
+                }
+                else{
+                    switch(rem){
+                        case 10:
+                            conv += 'A';
+                            break;
+                        case 11:
+                            conv += 'B';
+                            break;
+                        case 12:
+                            conv += 'C';
+                            break;
+                        case 13:
+                            conv += 'D';
+                            break;
+                        case 14:
+                            conv += 'E';
+                            break;
+                        case 15:
+                            conv += 'F';
+                            break;
+                        case 16:
+                            conv += 'G';
+                            break;
+                        case 17:
+                            conv += 'H';
+                            break;  
+                        case 18:
+                            conv += 'I';
+                            break;
+                        case 19:
+                            conv += 'J';
+                            break;    
+                    }
+                }
+
+            }
+            
+            len = conv.length();
+            
+            for(j=len-1;j>=0;j--){
+                out<<conv[j];
+            }
+            
+            out<<" ";
+            
+            len = str.length();
+            
+            for(j=len-1;j>=0;j--){
+                out<<str[j];
+            }
+            
+            out<<endl;
+
+        }
+        
+    }
+    
+    
+    return 0;
+ }
+    
+
