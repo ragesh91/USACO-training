@@ -1,0 +1,56 @@
+/*
+ID: ragesh91
+PROG: milk
+LANG: C++
+*/
+
+#include<iostream>
+#include<string.h>
+#include<fstream>
+using namespace std;
+
+int main(){
+   
+    ifstream in("milk.in");
+    ofstream out("milk.out");
+    
+    int i,j,n,m,price=0,temp,quan=0;
+    
+    in >> n >> m;
+    
+    int p[m],a[m];
+    
+    for(i=0;i<m;i++){
+        in >> p[i] >>a[i] ;
+    }
+    
+    for(i=1;i<m;i++){
+        for(j=0;j<i;j++){
+            if(p[i]<p[j]){
+                temp = p[i];
+                p[i] = p[j];
+                p[j] = temp;
+                temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+    }
+    
+    i = 0;
+    
+    if(m){
+        while((quan+a[i])<n){
+            price += a[i]*p[i];
+            quan += a[i];
+            i++;
+        }
+        price += (n-quan)*p[i];
+    }
+    
+    out << price << endl;
+    
+    return 0;
+ }
+    
+
